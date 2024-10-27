@@ -1,0 +1,24 @@
+version: '3'
+services:
+  ticket-service:
+    build: .
+    ports:
+      - "3000:3000"
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/support
+      - JWT_SECRET=your-secret-key
+      - SENDGRID_API_KEY=API_KEY
+    depends_on:
+      - mongo
+    networks:
+      - backend
+
+  mongo:
+    image: mongo:4.4
+    ports:
+      - "27017:27017"
+    networks:
+      - backend
+
+networks:
+  backend:  
